@@ -20,9 +20,22 @@ function NoteItem({ noteId }) {
         setEditing(!editing)
     }
 
-    function saveNote() {
+    function handleSaveNote(event) {
         toggleEdit()
-        // save note to db via fetch, to be implemented later here...
+        const formData = new FormData(event.target)
+        note.title = formData.get('title')
+        note.content = formData.get('content')
+        fetch(`http://localhost:3000/api/update-note/${noteId}`, {
+            method: "POST",
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ title: note.title, content: note.content})
+        })
+        .then(response => response.json())
+        .then(data => {
+            alert('Saved Note!')
+        })
     }
 
     return (
@@ -30,12 +43,12 @@ function NoteItem({ noteId }) {
         { loading ? <p>Loading note...</p> : (
             <>
                 { editing ? (
-                    <>
-                    <input type="text" className="form-control mb-2" placeholder="Title..." defaultValue={note.title} />
-                    <textarea className="form-control" rows="20" placeholder="Type your note here..." defaultValue={note.content}>
+                    <form method="POST" onSubmit={handleSaveNote}>
+                    <input type="text" name="title" className="form-control mb-2" placeholder="Title..." defaultValue={note.title} />
+                    <textarea name="content" className="form-control" rows="20" placeholder="Type your note here..." defaultValue={note.content}>
                     </textarea>
-                    <button className="btn btn-success m-2" onClick={saveNote}>Save</button>
-                    </>
+                    <button className="btn btn-success m-2">Save</button>
+                    </form>
                 ) : (<><h1 className="mb-4" onClick={toggleEdit}>{note.title}</h1><p onClick={toggleEdit}>{note.content ? note.content : 'Click to start editing...'}</p></>)
                 }
             </>
