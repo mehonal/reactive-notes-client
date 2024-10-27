@@ -7,6 +7,7 @@ function Notes() {
             <div className="container-fluid text-center mt-5">
                 <h1 className="mb-4">Notes</h1>
                 <NoteList />
+                <Link to="/add-note" className="btn btn-primary mt-4">Add Note</Link>
             </div>
         </>
     )

@@ -7,6 +7,7 @@ import 'bootstrap/dist/js/bootstrap.min.js'
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
 import Notes from './pages/Notes.jsx'
 import Note from './pages/Note.jsx'
+import AddNote from './pages/AddNote.jsx'
 
 
 function App() {
@@ -15,6 +16,7 @@ function App() {
       <Routes>
         <Route path="/" element={<Notes />} />
         <Route path="/notes" element={<Notes />} />
+        <Route path="/add-note" element={<AddNote />} />
         <Route path="/notes/:noteId" element={<Note />} />
       </Routes>
     </Router>
