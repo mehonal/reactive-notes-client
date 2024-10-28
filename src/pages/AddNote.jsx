@@ -1,3 +1,5 @@
+import { Link } from 'react-router-dom';
+
 
 function AddNote() {
 
@@ -26,7 +28,8 @@ function AddNote() {
                     <input type="text" name="note-title" className="form-control mb-2" placeholder="Note Title..." />
                     <textarea name="note-content" className="form-control mb-2" placeholder="Enter your note content...">
                     </textarea>
-                    <input type="submit" className="btn btn-primary" />
+                    <input type="submit" className="btn btn-primary me-2" value="Add Note" />
+                    <Link to="/notes" className="btn btn-secondary">Cancel</Link>
                 </form>
             </div>
         </>
