@@ -1,5 +1,7 @@
 import { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
+import NoteListItem from './NoteListItem.jsx'
+
 
 function NoteList() {
     const [notes, setNotes] = useState([])
@@ -24,9 +26,7 @@ function NoteList() {
             (
                 <div className="row">
                     { notes.map((note, index)=> (
-                        <div key={note._id} className={`col-sm-4 ${ index % 2 === 0 ? 'bg-danger' : 'bg-success'} d-flex justify-content-center align-items-center`} style={{minHeight: "300px"}}>
-                            <Link to={`/notes/${note._id}`} style = {{color: "white", textDecoration: "none"}}>{note.title}</Link>
-                        </div>
+                        <NoteListItem key={index} index={index} note={note} />
                     ))}
                 </div>
             )
