@@ -1,18 +1,11 @@
 import { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
 import NoteListItem from './NoteListItem.jsx'
+import useNotes from '../hooks/useNotes.jsx'
 
 
 function NoteList() {
-    const [notes, setNotes] = useState([])
-    const [loading, setLoading] = useState(true)
-    
-    function fetchNotes() {
-        console.log('Fetching notes...')
-        fetch('http://localhost:3000/api/get-notes')
-        .then(response => response.json())
-        .then(data => { setNotes(data); setLoading(false); })
-    }
+    const { notes, setNotes, loadingNotes, setLoadingNotes, fetchNotes } = useNotes(); 
 
     useEffect(() => {
         fetchNotes()
@@ -20,7 +13,7 @@ function NoteList() {
 
     return (
         <>
-        { loading ?
+        { loadingNotes ?
             (<p>Loading notes...</p>)
             :
             (
