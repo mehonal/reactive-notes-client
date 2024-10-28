@@ -1,5 +1,4 @@
-import { useCallback } from 'react'
-import { useState } from 'react'
+import { useCallback, useState } from 'react'
 
 
 function useNotes() {
@@ -30,14 +29,19 @@ function useNotes() {
     function handleSaveNote(event) {
         toggleEdit()
         const formData = new FormData(event.target)
-        currentNote.title = formData.get('note-title')
-        currentNote.content = formData.get('note-content')
-        fetch(`http://localhost:3000/api/update-note/${currentNote._id}`, {
+        const noteId = formData.get('note-id')
+        const title = formData.get('note-title')
+        const content = formData.get('note-content')
+        if (currentNote != null && noteId == currentNote._id) {
+            currentNote.title = title
+            currentNote.content = content
+        }
+        fetch(`http://localhost:3000/api/update-note/${noteId}`, {
             method: "POST",
             headers: {
                 'Content-Type': 'application/json'
             },
-            body: JSON.stringify({ title: currentNote.title, content: currentNote.content})
+            body: JSON.stringify({ title: title, content: content})
         })
         .then(response => response.json())
         .then(data => {

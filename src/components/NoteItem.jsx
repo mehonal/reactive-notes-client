@@ -15,6 +15,7 @@ function NoteItem({ noteId }) {
             <>
                 { editing ? (
                     <form method="POST" onSubmit={handleSaveNote}>
+                    <input type="hidden" name="note-id" value={noteId} />
                     <input type="text" name="note-title" className="form-control mb-2" placeholder="Title..." defaultValue={currentNote.title} />
                     <textarea name="note-content" className="form-control" rows="20" placeholder="Type your note here..." defaultValue={currentNote.content}>
                     </textarea>
